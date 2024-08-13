@@ -1,0 +1,61 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+pkg_files(
+    name = "setup_scripts",
+    srcs = [
+        "desktop_setup.sh",
+    ],
+    prefix = "",
+)
+
+# nest everything in jupiter_installed_packages under a "brt" parent directory
+pkg_tar(
+    name = "jupiter_packages",
+    package_dir = "brt",
+    tags = [
+        "no-cache",
+        "no-remote-cache-upload",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//autonomy/jupiter/robotics/desktop-support/bundle:jupiter_installed_packages",
+    ],
+)
+
+pkg_tar(
+    name = "jupiter_qos_profiles_files_tar",
+    srcs = [
+        "//autonomy/jupiter/robotics/qos:jupiter_qos_profiles_files",
+    ],
+    package_dir = "brt",
+    visibility = ["//visibility:public"],
+)
+
+# create the tar file that contains everything needed to set up a ros2-jupiter environment
+pkg_tar(
+    name = "desktop_app",
+    srcs = [
+        ":setup_scripts",
+    ],
+    package_dir = "app",
+    tags = [
+        "manual",
+        "no-cache",
+        "no-remote",
+        "no-remote-cache",
+        "no-remote-cache-upload",
+    ],
+    deps = [
+        ":jupiter_packages",
+        ":jupiter_qos_profiles_files_tar",
+        "//autonomy/adk/bundle:adk-appfs",
+        "//autonomy/jupiter/robotics/halo/bundle:jupiter_installed_packages_migrate_me",
+    ],
+)
+
+sh_binary(
+    name = "install_desktop_app",
+    srcs = ["install.sh"],
+    data = [":desktop_app"],
+)

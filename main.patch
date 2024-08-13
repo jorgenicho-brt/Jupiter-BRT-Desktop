@@ -1,0 +1,24 @@
+diff --git a/autonomy/adk/bundle/BUILD.bazel b/autonomy/adk/bundle/BUILD.bazel
+index 4f3d86e37..c365efe27 100644
+--- a/autonomy/adk/bundle/BUILD.bazel
++++ b/autonomy/adk/bundle/BUILD.bazel
+@@ -91,6 +91,7 @@ pkg_tar(
+         "no-remote-cache",
+         "no-remote-cache-upload",
+     ],
++    visibility = ["//autonomy/jupiter/robotics:__subpackages__"],
+     deps = [
+         ":rti_python_tar",
+         "//autonomy/adk/idl:idl_xml_pkg_tar",
+diff --git a/autonomy/jupiter/robotics/halo/bundle/BUILD.bazel b/autonomy/jupiter/robotics/halo/bundle/BUILD.bazel
+index aac07d5d5..3349603c0 100644
+--- a/autonomy/jupiter/robotics/halo/bundle/BUILD.bazel
++++ b/autonomy/jupiter/robotics/halo/bundle/BUILD.bazel
+@@ -211,6 +211,7 @@ pkg_tar(
+         "no-remote-cache",
+         "no-remote-cache-upload",
+     ],
++    visibility = ["//autonomy/jupiter/robotics:__subpackages__"],
+     deps = [
+         ":pip_deps_pkg",
+         ":ros_shims",
