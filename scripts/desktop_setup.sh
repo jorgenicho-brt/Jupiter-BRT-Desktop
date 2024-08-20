@@ -60,6 +60,9 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${BRT_APP_PATH}/brt/lib"
 export PATH=${PATH:+${PATH}:}${BRT_APP_PATH}/brt/ros/bin:${BRT_APP_PATH}/brt/bin
 export PKG_CONFIG_PATH=${PKG_CONFIG_PATH:+${PKG_CONFIG_PATH}:}${BRT_APP_PATH}/brt/ros/lib/pkgconfig
 export PYTHONPATH=${PYTHONPATH:+${PYTHONPATH}:}${BRT_APP_PATH}/brt/ros/lib/python3.10/site-packages
+export PYTHONPATH="${PYTHONPATH}:${BRT_APP_PATH}/brt/usr/lib/python3/brt-packages"
+export PYTHONPATH="${PYTHONPATH}:${BRT_APP_PATH}/brt/usr/lib/python3/external-packages"
+export PYTHONPATH="${PYTHONPATH}:${BRT_APP_PATH}/brt/usr/share/external/rti_connext:${BRT_APP_PATH}/brt/usr/share/external/rti_connextdds_py"
 #export ROS_LOG_DIR=/var/volatile
 
 # Setting  QoS profiles
