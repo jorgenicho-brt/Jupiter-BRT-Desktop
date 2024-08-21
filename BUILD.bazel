@@ -20,7 +20,7 @@ pkg_tar(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        "//autonomy/jupiter/robotics/desktop-support/bundle:jupiter_installed_packages",
+        "//autonomy/jupiter/robotics/desktop/bundle:jupiter_installed_packages",
     ],
 )
 
@@ -150,7 +150,7 @@ sh_binary(
         "scripts/install.sh",
     ],
     data = [
-        ":restructure_packages",
         ":desktop_app",
+        ":restructure_packages",
     ],
 )
