@@ -2,9 +2,9 @@ load("@pip//:requirements.bzl", "requirement")
 load("@python_repo//:build_defs.bzl", "if_python_version")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//autonomy/jupiter/robotics/halo/bundle:models.bzl", "HALO_MODELS")
-load("//autonomy/jupiter/robotics/JupiterPythonDependencies:defs.bzl", "INORBIT_PYTHON_DEPS")
+#load("//autonomy/jupiter/robotics/JupiterPythonDependencies:defs.bzl", "INORBIT_PYTHON_DEPS")
 load("//third_party/python:defs.bzl", "VPU_PYTHON_DEPS")
-load("//tools:models.bzl", "brt_engine_files")
+#load("//tools:models.bzl", "brt_engine_files")
 load("//tools:ros2.bzl", "brt_ros2_pip_pkg")
 
 def instantiate_jupiter_bundle():
@@ -18,18 +18,18 @@ def instantiate_jupiter_bundle():
         deps = [
             "//autonomy/jupiter/robotics/JupiterEmbedded/jupiter_config:jupiter_config_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/autonomy_event:autonomy_event_pkg",
-            "//autonomy/jupiter/robotics/JupiterEmbedded/src/bag_recorder:bag_recorder_pkg",
+            #"//autonomy/jupiter/robotics/JupiterEmbedded/src/bag_recorder:bag_recorder_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/canbus_module:canbus_module_pkg",
-            "//autonomy/jupiter/robotics/JupiterEmbedded/src/data_capture_trigger:data_capture_trigger_pkg",
+            #"//autonomy/jupiter/robotics/JupiterEmbedded/src/data_capture_trigger:data_capture_trigger_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/determinator:determinator_pkg",
-            "//autonomy/jupiter/robotics/JupiterEmbedded/src/dnn_engine:dnn_engine_pkg",
+            #"//autonomy/jupiter/robotics/JupiterEmbedded/src/dnn_engine:dnn_engine_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/equipment_motion_analyzer:equipment_motion_analyzer_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/field_origin_provider:field_origin_provider_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/frame_transform_provider:frame_transform_config_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/frame_transform_provider:frame_transform_provider_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/image_quality:image_quality_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/imaging_mode:imaging_mode_pkg",
-            "//autonomy/jupiter/robotics/JupiterEmbedded/src/implement_angle_node:implement_angle_node_pkg",
+            #"//autonomy/jupiter/robotics/JupiterEmbedded/src/implement_angle_node:implement_angle_node_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/jupiter_io:jupiter_io_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/jupiter_roslib:jupiter_roslib_py_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/launch_utils:launch_utils_pkg",
@@ -40,18 +40,18 @@ def instantiate_jupiter_bundle():
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/mqtt_proxy:mqtt_proxy_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/object_localizer:object_localizer_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/online_cal:online_cal_pkg",
-            "//autonomy/jupiter/robotics/JupiterEmbedded/src/passive_mapping:passive_mapping_pkg",
+            #"//autonomy/jupiter/robotics/JupiterEmbedded/src/passive_mapping:passive_mapping_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/path_provider:path_provider_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/sparkai_heartbeat:sparkai_heartbeat_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/sparkai_proxy:sparkai_proxy_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/stream_compressor:stream_compressor_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/system_utils:system_utils_pkg",
-            "//autonomy/jupiter/robotics/JupiterEmbedded/src/tracking:tracking_pkg",
+            #"//autonomy/jupiter/robotics/JupiterEmbedded/src/tracking:tracking_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/tracking_v2:tracking_v2_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/update_monitor:update_monitor_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/visualization_republisher:visualization_republisher_pkg",
             "//autonomy/jupiter/robotics/JupiterEmbedded/src/vpu_monitor:vpu_monitor_pkg",
-            "//autonomy/jupiter/robotics/JupiterEmbedded/src/webcast:webcast_pkg",
+            #"//autonomy/jupiter/robotics/JupiterEmbedded/src/webcast:webcast_pkg",
             "//autonomy/jupiter/robotics/JupiterInterface/can_msgs:can_msgs_idls_tar",
             "//autonomy/jupiter/robotics/JupiterInterface/can_msgs:can_msgs_py_pkg",
             "//autonomy/jupiter/robotics/JupiterInterface/can_msgs:can_msgs_typesupport_tar",
@@ -70,7 +70,7 @@ def instantiate_jupiter_bundle():
             "//autonomy/jupiter/robotics/JupiterLibs/libs/jutils:jutils_pkg",
             "//autonomy/jupiter/robotics/JupiterLibs/src/jdb:jdb_pkg",
             "//autonomy/jupiter/robotics/JupiterLibs/src/jupiter_vision/py_interface:py_jupiter_vision_pkg",
-            "//autonomy/jupiter/robotics/JupiterLibs/src/stream_codec:stream_codec_pkg",
+            #"//autonomy/jupiter/robotics/JupiterLibs/src/stream_codec:stream_codec_pkg",
             "//autonomy/jupiter/robotics/JupiterLibs/src/trt_inferer:py_trt_inferer_pkg",
             "//third_party/robot_state_publisher:robot_state_publisher_pkg",
             "//third_party/xacro:xacro_pkg",
