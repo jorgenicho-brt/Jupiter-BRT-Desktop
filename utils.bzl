@@ -1,12 +1,9 @@
-def test_function():
-    pass
-
 def pyinit_file_genrule(name, out_path):
     native.genrule(
         name = name,
         outs = [out_path + "/__init__.py"],
         srcs = ["templates/__init__.py.template"],
-        cmd = "cp $< $@"
+        cmd = "cp $< $@",
     )
 
 def _create_symlinks_impl(ctx):

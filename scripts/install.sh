@@ -38,6 +38,6 @@ BRT_PYTHON_LIBS_PATH="$BRT_APP_PATH/app/brt/usr/lib/python3/brt-packages"
 create_symlinks "$BRT_PYTHON_LIBS_PATH/autonomy/adk/idl/common" "$BRT_PYTHON_LIBS_PATH"
 create_symlinks "$BRT_PYTHON_LIBS_PATH/autonomy/adk/idl/sensor/camera" "$BRT_PYTHON_LIBS_PATH"
 
-support_script="restructure_packages"
+support_script="run_reorganize_packages"
 support_script="$(pwd)/../../$support_script"
 "$support_script" "$BRT_PYTHON_LIBS_PATH/external" "$BRT_APP_PATH/app/brt/usr/lib/python3/external-packages"

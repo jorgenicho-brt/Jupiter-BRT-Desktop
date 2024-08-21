@@ -1,5 +1,6 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load(":dependencies.bzl", "instantiate_jupiter_bundle")
 load(":utils.bzl", "create_symlinks", "pyinit_file_genrule")
 
 pkg_files(
@@ -11,6 +12,8 @@ pkg_files(
 )
 
 # nest everything in jupiter_installed_packages under a "brt" parent directory
+instantiate_jupiter_bundle()
+
 pkg_tar(
     name = "jupiter_packages",
     package_dir = "brt",
@@ -20,7 +23,7 @@ pkg_tar(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        "//autonomy/jupiter/robotics/desktop/bundle:jupiter_installed_packages",
+        ":jupiter_installed_packages_tar",
     ],
 )
 
@@ -138,9 +141,9 @@ pkg_tar(
 )
 
 py_binary(
-    name = "restructure_packages",
-    srcs = ["scripts/restructure_packages.py"],
-    main = "scripts/restructure_packages.py",
+    name = "run_reorganize_packages",
+    srcs = ["scripts/reorganize_python_pkgs.py"],
+    main = "scripts/reorganize_python_pkgs.py",
     deps = [],
 )
 
@@ -151,6 +154,6 @@ sh_binary(
     ],
     data = [
         ":desktop_app",
-        ":restructure_packages",
+        ":run_reorganize_packages",
     ],
 )

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import copy
 import os
 import sys
 import shutil
@@ -22,16 +23,19 @@ def move_directory_contents(src_dir: str, dest_dir: str, ignore_files : list[str
         os.makedirs(dest_dir)
 
     # Iterate over all the files and directories in the source directory
+    print('src_dir {0}'.format(src_dir))
     for item in os.listdir(src_dir):
         src_path = os.path.join(src_dir, item)
-        dest_path = os.path.join(dest_dir, item)
-
         if item in ignore_files:
             continue
 
         # Move the item
-        shutil.move(src_path, dest_path)
-        print(f"Moved '{src_path}' to '{dest_path}'")
+        try:
+            shutil.move(src_path, dest_dir)
+            print(f"Moved '{src_path}' to '{dest_dir}'")
+            continue
+        except Exception as e:
+            print(e)
 
 def get_subdirectories(dir_path: str):
     return [str(f.path) for f in os.scandir(dir_path) if f.is_dir()]
@@ -48,14 +52,14 @@ def main():
 
     # now move everything to dest directory
     move_directory_contents(src_path, dest_path)
-    os.removedirs(src_path)
+    shutil.rmtree(src_path)
 
     # now find all pip directories that need to be re-arranged
     sub_dirs_list = get_subdirectories(dest_path)
     for sub_dir in sub_dirs_list:
         sub_dir_name = Path(sub_dir).stem
         if sub_dir_name.find('pip_') == 0:
-            print('Found pip directory {0}'.format(sub_dir_name))
+            print('Found pip directory {0} in path {1}'.format(sub_dir_name, sub_dir))
 
             dirs_list = get_subdirectories(sub_dir)
             site_packages_dir_path = os.path.join(sub_dir,SITE_PACKAGES_DIR_NAME)
