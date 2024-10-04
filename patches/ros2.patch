@@ -1,0 +1,11 @@
+diff --git a/tools/private/ros2_providers.bzl b/tools/private/ros2_providers.bzl
+index 9867c6623..0c3a9ba3a 100644
+--- a/tools/private/ros2_providers.bzl
++++ b/tools/private/ros2_providers.bzl
+@@ -1,4 +1,5 @@
+-visibility(["//tools/..."])
++#visibility(["//tools/..."])
++visibility(["public"])
+ 
+ Ros2InterfaceInfo = provider(
+     "Provides info for interface code generation.",

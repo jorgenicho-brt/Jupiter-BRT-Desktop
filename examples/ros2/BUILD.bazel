@@ -1,0 +1,16 @@
+load("//autonomy/jupiter/robotics/jupiter-desktop/tools/ros2:ros2_launch.bzl", "ros2_launch")
+
+ros2_launch(
+    name = "factlib_camera_manager_launch",
+    data = [
+        ":launch/halo_cameras.yaml",
+        "//autonomy/adk/common/rti:adk_qos_profiles",
+    ],
+    env = {
+        "NDDS_QOS_PROFILES": "$(location //autonomy/adk/common/rti:adk_qos_profiles)",
+    },
+    launch_file = "launch/factesim_cam_manager.launch.py",
+    nodes = [
+        "//autonomy/jupiter/callisto/jupiter_factesim:fs_camera_manager",
+    ],
+)
