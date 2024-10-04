@@ -1,0 +1,68 @@
+adk:
+  adk_topic_prefix: "rt/"
+  adk_topic_names: {raw_image: "raw_image"}
+cameras:
+  - camera_name: "T01_Stereo_Camera_4_C"  # In FACT-eSim {name: CineMonoCamera1, type: Camera, ID: 1}
+    vehicle_name: ""
+    ros_topic_prefix: "halo_cam_01"
+    fps: 1.0
+    position: []
+    rotation_rpy: [] # degrees
+    publish_ros: true
+    publish_dds: true
+    camera_idx: 0 # Used by adk
+    ecu_idx: 0    # Used by adk
+    stereo_cfg:
+      right_image_on: true
+      left_image_on: false
+      depth_image_on: false
+      seg_image_on: false
+      disp_image_on: false
+  - camera_name: "T02_Stereo_Camera_5_C"  # In FACT-eSim {name: CineMonoCamera2, ID: 2, type: Camera}
+    vehicle_name: ""
+    ros_topic_prefix: "halo_cam_02"
+    fps: 1.0
+    position: []
+    rotation_rpy: [] # degrees
+    publish_ros: true
+    publish_dds: true
+    camera_idx: 1
+    ecu_idx: 0
+    stereo_cfg:
+      right_image_on: true
+      left_image_on: false
+      depth_image_on: false
+      seg_image_on: false
+      disp_image_on: false
+  - camera_name: "T03_Stereo_Camera_6_C"  # In FACT-eSim {name: FrontCamera, ID: 3, type: Camera}
+    vehicle_name: ""
+    ros_topic_prefix: "halo_cam_03"
+    fps: 1.0
+    position: []
+    rotation_rpy: [] # degrees
+    publish_ros: true
+    publish_dds: true
+    camera_idx: 2
+    ecu_idx: 0
+    stereo_cfg:
+      right_image_on: true
+      left_image_on: false
+      depth_image_on: false
+      seg_image_on: false
+      disp_image_on: false
+  - camera_name: "T04_Stereo_Camera_7_C"  # In FACT-eSim {name: FrontCamera, type: Camera, ID: 3}
+    vehicle_name: ""
+    ros_topic_prefix: "halo_cam_04"
+    fps: 1.0
+    position: []
+    rotation_rpy: [] # degrees
+    publish_ros: true
+    publish_dds: true
+    camera_idx: 3
+    ecu_idx: 0
+    stereo_cfg:
+      right_image_on: true
+      left_image_on: false
+      depth_image_on: false
+      seg_image_on: false
+      disp_image_on: false

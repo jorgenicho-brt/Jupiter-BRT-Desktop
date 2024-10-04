@@ -1,0 +1,67 @@
+licenses(["notice"])  # Apache 2.0 license
+
+load("@com_bluerivertech//third_party/python:defs.bzl", "vpu_ros_site_packages_path")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+py_library(
+    name = "launch_ros",
+    srcs = glob(
+        ["launch_ros/launch_ros/**/*.py"],
+    ),
+    imports = ["launch_ros"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@ros2//ament_index:ament_index_python",
+        "@ros2//launch:launch",
+        "@ros2//rcl_interfaces:composition_interfaces_py",
+        "@ros2//rcl_interfaces:lifecycle_msgs_py",
+        "@ros2//rclpy",
+    ],
+)
+
+py_library(
+    name = "ros2launch",
+    srcs = glob(
+        ["ros2launch/ros2launch/**/*.py"],
+    ),
+    imports = ["ros2launch"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":launch_ros",
+        "@ros2//ros2cli:ros2pkg",
+    ],
+)
+
+pkg_tar(
+    name = "ros2launch_site-packages_pkg",
+    srcs = [
+        ":launch_ros",
+        ":ros2launch",
+    ],
+    package_dir = vpu_ros_site_packages_path(),
+    remap_paths = {
+        "external/ros2/launch_ros/launch_ros": "/",
+        "external/ros2/launch_ros/ros2launch": "/",
+    },
+    strip_prefix = ".",
+    visibility = ["//visibility:public"],
+)
+
+pkg_tar(
+    name = "ros2launch_dist-info_pkg",
+    srcs = ["@com_bluerivertech//third_party/ros2:launch_ros/ros2launch/entry_points.txt"],
+    package_dir = vpu_ros_site_packages_path() + "/ros2launch.dist-info",
+    visibility = ["//visibility:public"],
+)
+
+pkg_tar(
+    name = "ros2launch_pkg",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":ros2launch_dist-info_pkg",
+        ":ros2launch_site-packages_pkg",
+        "@ros2//launch:launch_pkg",
+        "@ros2//ros2cli:ros2cli_pkg",
+        "@ros2//ros2cli:ros2pkg_pkg",
+    ],
+)

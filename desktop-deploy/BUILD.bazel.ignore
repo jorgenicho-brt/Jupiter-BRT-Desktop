@@ -1,0 +1,159 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load(":dependencies.bzl", "instantiate_jupiter_bundle")
+load(":utils.bzl", "create_symlinks", "pyinit_file_genrule")
+
+pkg_files(
+    name = "setup_scripts",
+    srcs = [
+        "scripts/desktop_setup.sh",
+    ],
+    prefix = "",
+)
+
+# nest everything in jupiter_installed_packages under a "brt" parent directory
+instantiate_jupiter_bundle()
+
+pkg_tar(
+    name = "jupiter_packages",
+    package_dir = "brt",
+    tags = [
+        "no-cache",
+        "no-remote-cache-upload",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":jupiter_installed_packages_tar",
+    ],
+)
+
+pkg_tar(
+    name = "jupiter_qos_profiles_files_tar",
+    srcs = [
+        "//autonomy/jupiter/robotics/qos:jupiter_qos_profiles_files",
+    ],
+    package_dir = "brt",
+    visibility = ["//visibility:public"],
+)
+
+pyinit_file_genrule("gen_adk_init", "autonomy")
+
+pkg_tar(
+    name = "adk_python_tar",
+    srcs = [
+        ":gen_adk_init",
+        "//autonomy/adk/idl:can_py",
+        "//autonomy/adk/idl:sensor_py",
+        "//autonomy/adk/python/image:adk_py_package",
+        "//autonomy/adk/python_bindings:py_wgs84.so",
+        "//autonomy/adk/simulation/sim_utils:elevation_map",
+        "//autonomy/adk/simulation/sim_utils:functions",
+        "//autonomy/adk/simulation/sim_utils:geojson",
+        "//autonomy/adk/simulation/sim_utils:plane_fit",
+    ],
+    remap_paths = {
+        #"autonomy/adk/idl/common": "/",
+    },
+    strip_prefix = ".",
+    tags = [
+        "manual",
+        "no-cache",
+        "no-remote",
+        "no-remote-cache",
+        "no-remote-cache-upload",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+pkg_tar(
+    name = "external_python_tar",
+    srcs = [
+        "//autonomy/jupiter/galileo/fact_esim_coordinator",
+        "//third_party/python:boto3",
+        "//third_party/python:numpy",
+        "//third_party/python:opencv-contrib-python-headless",
+        "//third_party/python:protobuf",
+        "//third_party/python:pyyaml",
+        "//third_party/python:rasterio",
+        "//third_party/python:scipy",
+        "@com_deere_github_machineautomation_factesim//:factlib_lib",
+        "@rti_connextdds_py",
+    ],
+    include_runfiles = True,
+    remap_paths = {
+        "external/com_deere_github_machineautomation_factesim/": "/",
+        "external/rti_connextdds_py/": "/",
+    },
+    strip_prefix = ".",
+    tags = [
+        "manual",
+        "no-cache",
+        "no-remote",
+        "no-remote-cache",
+        "no-remote-cache-upload",
+    ],
+    deps = [
+    ],
+)
+
+pkg_tar(
+    name = "brt_python_tar",
+    srcs = [
+    ],
+    package_dir = "brt/usr/lib/python3/brt-packages",
+    strip_prefix = ".",
+    tags = [
+        "manual",
+        "no-cache",
+        "no-remote",
+        "no-remote-cache",
+        "no-remote-cache-upload",
+        "no-vpu",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "adk_python_tar",
+        "external_python_tar",
+    ],
+)
+
+# create the tar file that contains everything needed to set up a ros2-jupiter environment
+pkg_tar(
+    name = "desktop_app",
+    srcs = [
+        ":setup_scripts",
+    ],
+    package_dir = "app",
+    tags = [
+        "manual",
+        "no-cache",
+        "no-remote",
+        "no-remote-cache",
+        "no-remote-cache-upload",
+    ],
+    deps = [
+        ":brt_python_tar",
+        ":jupiter_packages",
+        ":jupiter_qos_profiles_files_tar",
+        "//autonomy/adk/bundle:adk-appfs",
+        "//autonomy/jupiter/robotics/halo/bundle:jupiter_installed_packages_migrate_me",
+    ],
+)
+
+py_binary(
+    name = "run_reorganize_packages",
+    srcs = ["scripts/reorganize_python_pkgs.py"],
+    main = "scripts/reorganize_python_pkgs.py",
+    deps = [],
+)
+
+sh_binary(
+    name = "install_desktop_app",
+    srcs = [
+        "scripts/install.sh",
+    ],
+    data = [
+        ":desktop_app",
+        ":run_reorganize_packages",
+    ],
+)
