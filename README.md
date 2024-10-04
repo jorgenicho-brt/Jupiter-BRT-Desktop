@@ -1,4 +1,4 @@
-# Jupiter Destop Tooling
+# Jupiter Desktop Tooling
 ## Summary
 As of now provides the following tools
 - `ros2_launch` bazel rule
